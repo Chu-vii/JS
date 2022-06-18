@@ -28,15 +28,13 @@ function sumTo1(n) {
 */
 
   function sumTo2(n) { 
-    
-    for (let k = 1; k<=5;k++) {
+        
         let result ="";
-        for (let i = 1; i<=k;i++) {
+        for (let i = 1; i<=5;i++) {
         result = result + n;
-        }
         console.log(result) ;
+        } 
     }
-   }
    sumTo2(":)"); 
 
 //2*. Преобразовать 2 задачу в функцию, принимающую на вход строку, которая и будет выводиться в консоль (как в условии смайлик), а также количество строк для вывода 
@@ -44,14 +42,13 @@ function sumTo1(n) {
 
 function sumTo2_1(stroka, numberOfRows) { 
     
-    for (let k = 1; k<=numberOfRows;k++) {
         let result ="";
-        for (let i = 1; i<=k;i++) {
+        for (let i = 1; i<=numberOfRows;i++) {
         result = result + stroka;
-        }
         console.log(result) ;
+        } 
     }
-   }
+
    sumTo2_1("*",3);
 
 /*
@@ -102,3 +99,27 @@ function isPalindrom(word) {
 }
 
 console.log(isPalindrom('Aвbtba'));
+
+// version 2
+
+function isPalindrom1(word){ 
+    wordCase = word
+    let flag = true
+    word = word.toLowerCase()
+    word = word.trim()
+    let mid = Math.floor(word.length / 2)
+    for (let i = 0; i < mid; i++){
+        if (word[i] !== word[word.length-i-1]){
+            flag = false
+            break
+        }    
+        flag = true
+    }
+    if (flag == true) {
+        console.log(wordCase, '- слово палиндром')         
+    }
+    else {
+        console.log(wordCase, '- слово не палиндром')    
+    }
+}
+isPalindrom1('Abмba');
