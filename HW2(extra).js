@@ -11,11 +11,23 @@
    }
     console.log( sumTo(2) ); 
 
+    console.log(output);
+//____________________________________________________________________________
+
+let output1= '';
+let result1;
+for  (id=1; id<=10; id++) {
+    result1 = Math.pow(2, id); 
+    output1 += `2^${id} = ${result1}; `;   
+}
+
 //1*. Преобразовать 1 задачу в функцию, принимающую на вход степень, в которую будет возводиться число 2
 function sumTo1(n) { 
-        return 2**n;;
-   }
-    console.log( sumTo1(10) );
+    if (isFinite(n) && n != 0){
+         return 2**n;;
+   }else console.log('Warning! Enter a numeric value!');
+}
+    console.log( sumTo1(2576878) );
 
 
 /*2. Написать скрипт, который выведет 5 строк в консоль таким образом, чтобы в первой строчке выводилось :), во второй :):) и так далее
@@ -27,15 +39,22 @@ function sumTo1(n) {
 :):):):):)
 */
 
-  function sumTo2(n) { 
+let str = ':)';
+for (let i = 1; i <= 5; i++){
+	console.log(str.repeat(i));
+}
+
+//____________________________________________________________________________
+
+function sumTo2(n) { 
         
-        let result ="";
-        for (let i = 1; i<=5;i++) {
-        result = result + n;
-        console.log(result) ;
-        } 
-    }
-   sumTo2(":)"); 
+    let result ="";
+    for (let i = 1; i<=5;i++) {
+    result += n;
+    console.log(result) ;
+    } 
+}
+sumTo2(":)"); 
 
 //2*. Преобразовать 2 задачу в функцию, принимающую на вход строку, которая и будет выводиться в консоль (как в условии смайлик), а также количество строк для вывода 
 //2e.g. function printSmile(stroka, numberOfRows)
@@ -44,8 +63,9 @@ function sumTo2_1(stroka, numberOfRows) {
     
         let result ="";
         for (let i = 1; i<=numberOfRows;i++) {
-        result = result + stroka;
+        result += stroka;
         console.log(result) ;
+ //       console.log(stroka.repeat(i)); //альтернативный вариант
         } 
     }
 
@@ -68,7 +88,7 @@ function getWordStructure(word) {
         for (let i = 0; i<= arr.length ;i++) {
             
             if ( vowels.includes(arr[i])){
-                vowels_num = vowels_num+1;
+                vowels_num += 1;
             }  
         }
         let tacit = arr.length-vowels_num
@@ -77,9 +97,26 @@ function getWordStructure(word) {
                 tacit = arr.length-1-vowels_num;
             } 
         
-    return ("Слово " + word + " состоит из " + vowels_num + " гласных и " + tacit + " согласных букв.");
-   }
+    return `Слово ${word} состоит из ${vowels_num} гласных и ${tacit}  согласных букв.`
+   } 
    console.log(getWordStructure("Check-lost"));
+
+//____________________________________________________________________________
+
+
+const getWordStructure = function (word) {
+    let wordLow = word.toLowerCase();
+    let vowelsCount = wordLow.match(/[aeiou]/g).length;
+    let constantasCount = wordLow.match(/[qwrtpsdfghjklzxcvbnm]/gs).length;
+    console.log(`В слове ${wordLow}: гласных букв ${vowelsCount}; согласных букв ${constantasCount}.`);
+    }
+
+getWordStructure('case2');
+getWordStructure('Case');
+getWordStructure('Check-list');
+getWordStructure('Check list');
+getWordStructure('Check list');
+
 
 /* 4**. Написать функцию, которая проверяет, является ли слово палиндромом
 e.g. function isPalindrom(word)
@@ -88,7 +125,7 @@ e.g. function isPalindrom(word)
 */
 
 function isPalindrom(word) {
-    word = word.toLowerCase()
+    word = word.toLowerCase();
     let vise = word.split("").reverse().join("");    
     
     if (vise == word) {
@@ -100,14 +137,13 @@ function isPalindrom(word) {
 
 console.log(isPalindrom('Aвbtba'));
 
-// version 2
+//____________________________________________________________________________
+
 
 function isPalindrom1(word){ 
-    wordCase = word
-    let flag = true
-    word = word.toLowerCase()
-    word = word.trim()
-    let mid = Math.floor(word.length / 2)
+    let flag = true;
+    word = word.toLowerCase().trim(); //нижний регистр и удаление пробелов
+    let mid = Math.floor(word.length / 2) // среднее и округление к меньшему
     for (let i = 0; i < mid; i++){
         if (word[i] !== word[word.length-i-1]){
             flag = false
@@ -116,10 +152,10 @@ function isPalindrom1(word){
         flag = true
     }
     if (flag == true) {
-        console.log(wordCase, '- слово палиндром')         
+        console.log(word, '- слово палиндром')         
     }
     else {
-        console.log(wordCase, '- слово не палиндром')    
+        console.log(word, '- слово не палиндром')    
     }
 }
 isPalindrom1('Abмba');
