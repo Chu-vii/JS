@@ -74,11 +74,11 @@ const checkAge = function(age) {
         age_3 = 60;
 
     if (age < age_2) {
-        return ("You don't have access cause your age is "+ age + ". It's less then "+age_2);
+        return alert("You don't have access cause your age is "+ age + ". It's less then "+age_2);
        } else if (age >= age_2 && age <= age_3 ) {
-        return "Welcome!";
+        return alert("Welcome!");
        } else {
-        return "Keep calm and look Culture channel";
+        return alert("Keep calm and look Culture channel");
           };
     }
 
