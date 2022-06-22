@@ -1,189 +1,149 @@
-//HW_3
+//HW_3 /*Task 3**
 
-// Task 1. Написать функцию, которая найдет и выведет в консоль юзеров, зарегистрированных 09.10.2021 и 10.10.2021). Массив в task1.txt
-
-const users = [
+const enterprises = [
     {
-        firstName: 'John',
-        lastName: 'Caper',
-        phone: '7436676737634',
-        registrationDate: '12.10.2021'
+      id: 1,
+      name: "Предприятие 1",
+      departments: [
+        {
+          id: 2,
+          name: "Отдел тестирования",
+          employees_count: 10,
+        },
+        {
+          id: 3,
+          name: "Отдел маркетинга",
+          employees_count: 20,
+        },
+        {
+          id: 4,
+          name: "Администрация",
+          employees_count: 15,
+        },
+      ]
     },
     {
-        firstName: 'Clark',
-        lastName: 'Kent',
-        phone: '4346676737634',
-        registrationDate: '16.09.2021'
+      id: 5,
+      name: "Предприятие 2",
+      departments: [
+        {
+          id: 6,
+          name: "Отдел разработки",
+          employees_count: 50,
+        },
+        {
+          id: 7,
+          name: "Отдел маркетинга",
+          employees_count: 20,
+        },
+        {
+          id: 8,
+          name: "Отдел охраны труда",
+          employees_count: 5,
+        },
+      ]
     },
     {
-        firstName: 'Tony',
-        lastName: 'Stark',
-        phone: '7436698337634',
-        registrationDate: '11.10.2021'
-    },
-    {
-        firstName: 'Bruce',
-        lastName: 'Wayne',
-        phone: '1111176737634',
-        registrationDate: '09.10.2021'
-    },
-    {
-        firstName: 'Star',
-        lastName: 'Lord',
-        phone: '7439374737634',
-        registrationDate: '10.10.2021'
-    },
-    {
-        firstName: 'Kate',
-        lastName: 'Bishop',
-        phone: '7436693647634',
-        registrationDate: '11.10.2021'
-    },
-    {
-        firstName: 'Jerry',
-        lastName: 'James',
-        phone: '7409048737634',
-        registrationDate: '10.10.2021'
-    },
-    {
-        firstName: 'Jeremy',
-        lastName: 'Clarkson',
-        phone: '743667600289334',
-        registrationDate: '16.10.2020'
-    },
-    {
-        firstName: 'Robert',
-        lastName: 'Patrik',
-        phone: '7436676730093',
-        registrationDate: '10.10.2020'
-    },
-    {
-        firstName: 'Jonny',
-        lastName: 'Sins',
-        phone: '74923982737634',
-        registrationDate: '01.01.2021'
-    },
-    {
-        firstName: 'Andrew',
-        lastName: 'Garfield',
-        phone: '743667988344',
-        registrationDate: '09.10.2019'
-    },
-    {
-        firstName: 'Jane',
-        lastName: 'Foster',
-        phone: '74368783427634',
-        registrationDate: '09.10.2019'
-    },
-    {
-        firstName: 'Rick',
-        lastName: 'Smith',
-        phone: '700000037634',
-        registrationDate: '12.10.2021'
-    },
-];
-
-var newUsers =  users.filter(function(user) {
-    return  user.registrationDate == '10.10.2021' || user.registrationDate == '09.10.2021';
-});
-console.log(newUsers) ;
-
-/******result*****
-[
-    {
-      firstName: 'Bruce',
-      lastName: 'Wayne',
-      phone: '1111176737634',
-      registrationDate: '09.10.2021'
-    },
-    {
-      firstName: 'Star',
-      lastName: 'Lord',
-      phone: '7439374737634',
-      registrationDate: '10.10.2021'
-    },
-    {
-      firstName: 'Jerry',
-      lastName: 'James',
-      phone: '7409048737634',
-      registrationDate: '10.10.2021'
+      id: 9,
+      name: "Предприятие 3",
+      departments: [
+        {
+          id: 10,
+          name: "Отдел аналитики",
+          employees_count: 0,
+        },
+      ]
     }
   ]
+  
 
-******result*****
-*/
+ // 1. Вывести все предприятия и их отделы. Рядом указать количество сотрудников.
+ //Для предприятия посчитать сумму всех сотрудников во всех отделах.
+  
+ const ending = function (number) {
+  if (number == 1) return `сотрудник`
+  else if (number>1 && number<5) return `сотрудника`
+  else  return `сотрудников`
+  };
 
-//Task 2* Откройте в VSCode task2.json файл. Скопируйте из него JSONку, вставьте в свой код (присвоив в переменную).
-//Дан массив объектов. Каждый объект является идентификационной карточкой человека. Нам нужно хранить только уникальные значения в этом массиве. Реализуйте функцию, которая будет выполнять эту работу.
-//Task 2*** Реализуйте считывание из JSONки из файла task2.json с помощью, например, модуля fs. для дальнейшего использования в функции, описанной в задании
+const department = function (arr) {
+let company = [];
+ arr.forEach((el) => {
+  company.push(el.name);
+  let index = company.indexOf(el.name);
+   let em_count = 0;
+        el.departments.forEach((dep) => {            
+          em_count += dep.employees_count;
+                if (dep.employees_count == 0) {
+                  dep.employees_count = 'нет';
+                  em_count = 'нет';
+                }; 
+          company.push(`- ${dep.name} (${dep.employees_count} ${ending(dep.employees_count)})`);
 
-const customers = require("./task2 (HW3).json"); 
-// не бажано. Если очень большой JSON файл, он захлебнется в цикле событий.
-// require будетможет прочитать файл только один раз. Последующие вызовы, require для того же файла, вернут кэшированную копию. Не подойдет к файлу который постоянно обновляется.
-// Если файл не имеет расширения .json, require не будет обрабатывать содержимое файла как JSON
+        });
+        company.splice(index,1,`${el.name} (${em_count} сотрудников)`) 
+ });
+ for (i = 0; i < company.length; i++) { console.log(company[i]); }
+};
+department(enterprises);
 
-var fs = require('fs');
-var json = JSON.parse(fs.readFileSync("./task2 (HW3).json", 'utf8'));
-//Синхронная версия
-
-/*var fs = require('fs');
-
-fs.readFile("./task2 (HW3).json", 'utf8', function (err, data) {
-    if (err) throw err; // we'll not consider error handling for now
-    var obj = JSON.parse(data);
-});
-//Асинхронная версия
-*/
-
-
-const removeDuplicates = function(arr) {
-    let persons = [];
-
-    arr.forEach((el) => {
-      if (!persons.includes(JSON.stringify(el))) {
-        persons.push(JSON.stringify(el));
-      }
-    });
-    return persons.map(el => JSON.parse(el));
-}
-console.log('===================BEST========================');
-console.log(removeDuplicates(json).length);
-
-//____________________________________________________________________________
-
-function removeDuplicates1(arrayIn) {
-    let arrayOut =[arrayIn[0]];
-    let arrname = [];
-   //  console.log(arrayIn[0].name);
-    for (let a = 1; a < arrayIn.length; a++) {
-   //     console.log(arrayIn[a].name);
-        arrname.length=0;
-      for (let b = 0; b < arrayOut.length; b++) {
-    //      console.log(arrayOut[b].name);
-          arrname.push(arrayIn[b].name)
-      }
-          if (!arrname.includes(arrayIn[a].name)) {
-          arrayOut.push(arrayIn[a]) 
-        }
-      
-    }
-    arrayIn = arrayOut;
-    return arrayIn;
-  }
-  console.log(removeDuplicates1(customers).length);
-
-
-
-/*Task 3**
-В файле task3.txt найдете структуру компании и задания, необходимые выполнить.
-
-Примечание: ВСЕ задания выполнять не обязательно, если вам люто сложно. Но ПЕРВОЕ - прям надо всем:)
-
-Task 4****
-
-В файле task4.txt вы найдете разноуровневый массив объектов. Очень похожий на массив из 3го задания, только количество вложенностей может быть не ограничено. 
-
-Задание: написать функцию: 
-
-Функция строит древовидный список компании.
-При ее вызове в консоль должен вывестись список подразделений компании с указанием количества сотрудников и с соблюдение вложенности подразделений.*/
+ /* **RESULT**
+  
+  Предприятие 1 (45 сотрудников)
+  - Отдел тестирования (10 сотрудников)
+  - Отдел маркетинга (20 сотрудников)
+  - Администрация (15 человек)
+  Предприятие 2 (75 сотрудников)
+  - Отдел разработки (50 сотрудников)
+  - Отдел маркетинга (20 сотрудников)
+  - Отдел охраны труда (5 сотрудников)
+  Предприятие 3 (нет сотрудников)
+  - Отдел аналитики (нет сотрудников)
+  **RESULT**/
+  
+  /*2. Написать функцию, которая будет принимать 1 аргумент (id отдела или название отдела и возвращать название предприятия, к которому относится).
+  
+  Пример:
+  getEnterpriseName(4) // Предприятие 1
+  getEnterpriseName("Отдел маркетинга") // Предприятие 2
+  
+  3. Написать функцию, которая будет добавлять предприятие. В качестве аргумента принимает название предприятия
+  
+  Пример:
+  addEnterprise("Название нового предприятия")
+  
+  4. Написать функцию, которая будет добавлять отдел в предприятие. В качестве аргумента принимает id предприятия, в которое будет добавлен отдел и название отдела.
+  
+  Пример:
+  addDepartment(1, "Название нового отдела")
+  
+  5. Написать функцию для редактирования названия предприятия. Принимает в качестве аргумента id предприятия и новое имя предприятия.
+  
+  Пример:
+  editEnterprise(1, "Новое название предприятия")
+  
+  
+  6. Написать функцию для редактирования названия отдела. Принимает в качестве аргумента id отдела и новое имя отдела.
+  
+  Пример:
+  editDepartment(7, "Новое название отдела")
+  
+  
+  7. Написать функцию для удаления предприятия. В качестве аргумента принимает id предприятия.
+  
+  Пример:
+  deleteEnterprise(1)
+  
+  
+  8. Написать функцию для удаления отдела. В качестве аргумента принимает id отдела. Удалить отдел можно только, если в нем нет сотрудников.
+  
+  Пример:
+  deleteDepartment(3)
+  
+  
+  9. Написать функцию для переноса сотрудников между отделами одного предприятия. В качестве аргумента принимает два значения: id отдела, из которого будут переноситься сотрудники и id отдела, в который будут переноситься сотрудники).
+  
+  Пример:
+  moveEmployees(2, 3)
+  */
+  
