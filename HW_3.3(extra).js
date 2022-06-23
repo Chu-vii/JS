@@ -283,13 +283,45 @@ console.log(addDepartment(5,"Dep new",enterprises));
  console.log(editDepartment(8,'NEW NAME',enterprises));
   
   
- /* 7. Написать функцию для удаления предприятия. В качестве аргумента принимает id предприятия.
+ //7. Написать функцию для удаления предприятия. В качестве аргумента принимает id предприятия.
   
-  Пример:
-  deleteEnterprise(1)
+ const deleteEnterprise = function (id,EntNewName,arrayIn) {
+
+  let ent_id = new Map();
+  for (let a = 0; a < arrayIn.length; a++){
+    ent_id.set(arrayIn[a].id,a); };
+    
+  if (!ent_id.has(id)) { 
+    return 'Wrong Enterprise id'; }
+  else {
+    //console.log(ent_id.get(id));
+
+     arrayIn.splice([ent_id.get(id)],1);
+
+    return arrayIn;
+  }
+ }
+ console.log('==============================================')
+ console.log(deleteEnterprise(9,'NEW NAME Ent',enterprises));
+
+ /* **RESULT**
+ [
+  {
+    id: 1,
+    name: 'Предприятие 1',
+    departments: [ [Object], [Object], [Object] ]
+  },
+  {
+    id: 5,
+    name: 'NEW NAME Ent',
+    departments: [ [Object], [Object], [Object], [Object] ]
+  },
+  { id: 11, name: 'BEST', departments: [] }
+]
+**RESULT** */
   
   
-  8. Написать функцию для удаления отдела. В качестве аргумента принимает id отдела. Удалить отдел можно только, если в нем нет сотрудников.
+   /*8. Написать функцию для удаления отдела. В качестве аргумента принимает id отдела. Удалить отдел можно только, если в нем нет сотрудников.
   
   Пример:
   deleteDepartment(3)
