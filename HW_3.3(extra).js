@@ -114,13 +114,13 @@ const getEnterpriseName = function (num) {
   });
 
   if (map.has(num)) {
-    console.log(num + " - "+map.get(num));
+    return (num + " - "+map.get(num));
   } else {
-    console.log(num + ` - Дурачок`);
+    return (num + ` - Дурачок`);
   }
 };
-
-getEnterpriseName("Администрация");
+console.log('==============================================')
+console.log(getEnterpriseName("Администрация"));
 
 /* **RESULT**
 Администрация - Предприятие 1
@@ -158,48 +158,132 @@ console.log(getEnterpriseByDepartment(7))
 
  // 3. Написать функцию, которая будет добавлять предприятие. В качестве аргумента принимает название предприятия
   
- const addEnterprise = function(depName,arrayIn) {
-  
-  let id = arrayIn[arrayIn.length-1].departments[arrayIn[arrayIn.length-1].departments.length-1].id;
+ const idCount = function (arrayIn) {
 
   let all_id = [];
- 
-  arrayIn.forEach((el) => {
+    arrayIn.forEach((el) => {
     all_id.push(el.id);
     el.departments.forEach((dep) => {
       all_id.push(dep.id);
     });
   });
-  console.log(arrayIn[arrayIn.length-1])
-  arrayIn.push(
-    { id: id+1,
-      name: depName,
-      department:[]
-    });
-    console.log(all_id);
-}
-addEnterprise('Popki 9000',enterprises);
+return all_id
+};
 
-  
+ const addEnterprise = function (entName, arrayIn) {
+  // let id = arrayIn[arrayIn.length - 1].departments[arrayIn[arrayIn.length - 1].departments.length - 1].id;
 
+   arrayIn.push({ 
+     id: Math.max(...idCount(arrayIn)) + 1, 
+     name: entName, 
+     departments: [] });
+ 
+   return (arrayIn[arrayIn.length - 1]);
+ };
+ console.log('==============================================')
+ console.log(addEnterprise("BEST", enterprises));
+
+ /* **RESULT**
+ { id: 11, name: 'BEST', departments: [] }
+**RESULT** */
 
  // 4. Написать функцию, которая будет добавлять отдел в предприятие. В качестве аргумента принимает id предприятия, в которое будет добавлен отдел и название отдела.
- addDepartment
+ 
+ const addDepartment = function (id,depName,arrayIn) {
 
-  
+  let ent_id = new Map();
+    for (let a = 0; a < arrayIn.length; a++){
+      ent_id.set(arrayIn[a].id,a);
+     }
+    
+    if (!ent_id.has(id)) return 'Wrong Enterprise id';
+    else {
+
+    
+      arrayIn[ent_id.get(id)].departments.push(
+        {
+          id: Math.max(...idCount(arrayIn)) + 1,
+          name: depName,
+          employees_count: '',
+        })}
+    
+    return arrayIn[ent_id.get(id)];
+};
+console.log('==============================================')
+console.log(addDepartment(5,"Dep new",enterprises));
+
+/* **RESULT**
+{
+  id: 5,
+  name: 'Предприятие 2',
+  departments: [
+    { id: 6, name: 'Отдел разработки', employees_count: 50 },
+    { id: 7, name: 'Отдел маркетинга', employees_count: 20 },
+    { id: 8, name: 'Отдел охраны труда', employees_count: 5 },
+    { id: 12, name: 'Dep new', employees_count: '' }
+  ]
+}
+**RESULT** */
+
  // 5. Написать функцию для редактирования названия предприятия. Принимает в качестве аргумента id предприятия и новое имя предприятия.
   
-  Пример:
-  editEnterprise(1, "Новое название предприятия")
+ const editEnterprise = function (id,EntNewName,arrayIn) {
+
+  let ent_id = new Map();
+  for (let a = 0; a < arrayIn.length; a++){
+    ent_id.set(arrayIn[a].id,a); };
+    
+  if (!ent_id.has(id)) { 
+    return 'Wrong Enterprise id'; }
+  else {
+      arrayIn[ent_id.get(id)].name = EntNewName ;
+
+    return arrayIn[ent_id.get(id)];
+  }
+ }
+ console.log('==============================================')
+ console.log(editEnterprise(5,'NEW NAME Ent',enterprises));
+
+/* **RESULT**
+ {
+  id: 5,
+  name: 'NEW NAME Ent',
+  departments: [
+    { id: 6, name: 'Отдел разработки', employees_count: 50 },
+    { id: 7, name: 'Отдел маркетинга', employees_count: 20 },
+    { id: 8, name: 'Отдел охраны труда', employees_count: 5 },
+    { id: 12, name: 'Dep new', employees_count: '' }
+  ]
+}
+**RESULT** */ 
+
+ //6. Написать функцию для редактирования названия отдела. Принимает в качестве аргумента id отдела и новое имя отдела.
+
+ const editDepartment = function (id,depNewName,arrayIn) {
+
+  let dep_id = new Map();
+  let dep_id_s = new Map();
+
+  for (let b = 0; b < arrayIn.length; b++) {
+
+    for (let a = 0; a < arrayIn[b].departments.length; a++){ 
+       dep_id.set(arrayIn[b].departments[a].id, b); 
+       dep_id_s.set(arrayIn[b].departments[a].id, a);     
+     };
+  }
+
+  if (!dep_id.has(id)) { 
+    return 'Wrong Department id'; }
+  else {
+   arrayIn[dep_id.get(id)].departments[dep_id_s.get(id)].name = depNewName;
+  }
+  return arrayIn[dep_id.get(id)].departments[dep_id_s.get(id)]
+ }
+ console.log('==============================================')
+ console.log(editDepartment(8,'NEW NAME',enterprises));
   
   
- /* 6. Написать функцию для редактирования названия отдела. Принимает в качестве аргумента id отдела и новое имя отдела.
-  
-  Пример:
-  editDepartment(7, "Новое название отдела")
-  
-  
-  7. Написать функцию для удаления предприятия. В качестве аргумента принимает id предприятия.
+ /* 7. Написать функцию для удаления предприятия. В качестве аргумента принимает id предприятия.
   
   Пример:
   deleteEnterprise(1)
