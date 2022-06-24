@@ -88,7 +88,7 @@ var newUsers =  users.filter(function(user) {
 });
 console.log(newUsers) ;
 
-/******result*****
+/* **RESULT**
 [
     {
       firstName: 'Bruce',
@@ -110,8 +110,7 @@ console.log(newUsers) ;
     }
   ]
 
-******result*****
-*/
+**RESULT**/
 
 //Task 2* Откройте в VSCode task2.json файл. Скопируйте из него JSONку, вставьте в свой код (присвоив в переменную).
 //Дан массив объектов. Каждый объект является идентификационной карточкой человека. Нам нужно хранить только уникальные значения в этом массиве. Реализуйте функцию, которая будет выполнять эту работу.
@@ -171,6 +170,3 @@ function removeDuplicates1(arrayIn) {
     return arrayIn;
   }
   console.log(removeDuplicates1(customers).length);
-
-
-
