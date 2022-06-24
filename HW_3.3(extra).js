@@ -61,6 +61,7 @@ const enterprises = [
  //Для предприятия посчитать сумму всех сотрудников во всех отделах.
   
  const ending = function (number) {
+  number = number.toString().substr(-1,1);
   if (number == 1 || number == 21) return `сотрудник`
   else if (number>1 && number<5) return `сотрудника`
   else  return `сотрудников`
@@ -172,7 +173,6 @@ return all_id
 
  const addEnterprise = function (entName, arrayIn) {
   // let id = arrayIn[arrayIn.length - 1].departments[arrayIn[arrayIn.length - 1].departments.length - 1].id;
-
    arrayIn.push({ 
      id: Math.max(...idCount(arrayIn)) + 1, 
      name: entName, 
@@ -285,7 +285,7 @@ console.log(addDepartment(5,"Dep new",enterprises));
   
  //7. Написать функцию для удаления предприятия. В качестве аргумента принимает id предприятия.
   
- const deleteEnterprise = function (id,EntNewName,arrayIn) {
+ const deleteEnterprise = function (id,arrayIn) {
 
   let ent_id = new Map();
   for (let a = 0; a < arrayIn.length; a++){
@@ -294,15 +294,12 @@ console.log(addDepartment(5,"Dep new",enterprises));
   if (!ent_id.has(id)) { 
     return 'Wrong Enterprise id'; }
   else {
-    //console.log(ent_id.get(id));
-
      arrayIn.splice([ent_id.get(id)],1);
-
     return arrayIn;
   }
  }
  console.log('==============================================')
- console.log(deleteEnterprise(9,'NEW NAME Ent',enterprises));
+ console.log(deleteEnterprise(9,enterprises));
 
  /* **RESULT**
  [
@@ -321,15 +318,63 @@ console.log(addDepartment(5,"Dep new",enterprises));
 **RESULT** */
   
   
-   /*8. Написать функцию для удаления отдела. В качестве аргумента принимает id отдела. Удалить отдел можно только, если в нем нет сотрудников.
+//8. Написать функцию для удаления отдела. В качестве аргумента принимает id отдела. Удалить отдел можно только, если в нем нет сотрудников.
   
-  Пример:
-  deleteDepartment(3)
+ const deleteDepartment = function (id,arrayIn) {
+
+  let dep_id = new Map();
+  let dep_id_s = new Map();
+
+  for (let b = 0; b < arrayIn.length; b++) {
+
+    for (let a = 0; a < arrayIn[b].departments.length; a++){ 
+       dep_id.set(arrayIn[b].departments[a].id, b); 
+       dep_id_s.set(arrayIn[b].departments[a].id, a);     
+     };
+  }
+
+  if (!dep_id.has(id)) { 
+      return 'Wrong Department id'; }
+  else {
+      if (arrayIn[dep_id.get(id)].departments[dep_id_s.get(id)].employees_count !== 0) {
+        arrayIn[dep_id.get(id)].departments.splice(dep_id_s.get(id),1);
+      } else { return 'You can not delete this department';}
+    }
+  return arrayIn[dep_id.get(id)].departments
+ }
+ console.log('==============================================')
+ console.log(deleteDepartment(4,enterprises));
   
   
-  9. Написать функцию для переноса сотрудников между отделами одного предприятия. В качестве аргумента принимает два значения: id отдела, из которого будут переноситься сотрудники и id отдела, в который будут переноситься сотрудники).
+  //9. Написать функцию для переноса сотрудников между отделами одного предприятия. В качестве аргумента принимает два значения: id отдела, из которого будут переноситься сотрудники и id отдела, в который будут переноситься сотрудники).
   
-  Пример:
-  moveEmployees(2, 3)
-  */
+  const moveEmployees = function (id_from, id_to,arrayIn) {
+    let dep_id = new Map();
+    let dep_id_s = new Map();
   
+    for (let b = 0; b < arrayIn.length; b++) {
+  
+      for (let a = 0; a < arrayIn[b].departments.length; a++){ 
+         dep_id.set(arrayIn[b].departments[a].id, b); 
+         dep_id_s.set(arrayIn[b].departments[a].id, a);     
+       };
+    }
+  
+    if (dep_id.has(id_from) && dep_id.has(id_to) && (dep_id.get(id_from) == dep_id.get(id_to))) { 
+      
+      let people = arrayIn[dep_id.get(id_from)].departments[dep_id_s.get(id_from)].employees_count;
+  
+      arrayIn[dep_id.get(id_from)].departments[dep_id_s.get(id_from)].employees_count = 0;
+      arrayIn[dep_id.get(id_to)].departments[dep_id_s.get(id_to)].employees_count += people;
+      return arrayIn[dep_id.get(id_to)].departments[dep_id_s.get(id_to)];
+    }
+  else {
+    return 'Wrong Department id'; ; 
+   }
+  }
+    console.log('==============================================')
+   console.log(moveEmployees(2,3,enterprises));
+
+  /* **RESULT**
+{ id: 3, name: 'Отдел маркетинга', employees_count: 3 }
+**RESULT** */
