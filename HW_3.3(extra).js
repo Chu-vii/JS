@@ -62,7 +62,7 @@ const enterprises = [
   
  const ending = function (number) {
   number = number.toString().substr(-1,1);
-  if (number == 1 || number == 21) return `сотрудник`
+  if (number == 1 ) return `сотрудник`
   else if (number>1 && number<5) return `сотрудника`
   else  return `сотрудников`
   };
