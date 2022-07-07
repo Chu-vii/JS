@@ -68,7 +68,7 @@ const checkAge = function(age) {
     age = Number(age);
     
    // if( isNaN(age) ) {return (`Нужно число, дурачок!` );}
-      if( !Number.isFinite(age) ) {return (`Нужно число, дурачок!` );}
+      if( !Number.isFinite(age) ) {return (`Нужно число, дурачок!`);}
 
     let age_2 = 18,
         age_3 = 60;

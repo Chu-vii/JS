@@ -107,31 +107,17 @@ const Company_List = function (arrayIn) {
         res += `${a} ` + `${arrayIn[b].name} (${arrayIn[b].users_count})` + "\n";
         parent = arrayIn[b].parent;
     } else {
+      if (arrayIn[b].parent == null) {res += `${a}` + `${arrayIn[b].name} (${arrayIn[b].users_count})` + "\n";
+      a += "-"}
+      else{
       if (arrayIn[b].parent < parent) a = a.substr(1);
         res += `${a} ` + `${arrayIn[b].name} (${arrayIn[b].users_count})` + "\n";
         parent = arrayIn[b].parent;
         a += "-";
-
+      }
       Company_List(arrayIn[b].children);
     }
   }
   return res;
 };
-console.log(Company_List(company));
-
-/*let res ='';
-let a = '';
-const Company_List = function (arrayIn) {
-  arrayIn.forEach(el => { 
-   // console.log(`${el.name} (${el.users_count})`)
-    if (!el.children) {
-       
-     res += `${a} `+`${el.name} (${el.users_count})` + '\n';
-    }else {
-    res += `${a} `+ `${el.name} (${el.users_count})` + '\n';
-    a += '-'; 
-    Company_List(el.children)};
-  });
-  return res;
-};
-console.log(Company_List(company)); */
+console.log(Company_List(company))

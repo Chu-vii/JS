@@ -11,7 +11,7 @@
    }
     console.log( sumTo(2) ); 
 
-    console.log(output);
+
 //____________________________________________________________________________
 
 let output1= '';
@@ -20,6 +20,7 @@ for  (id=1; id<=10; id++) {
     result1 = Math.pow(2, id); 
     output1 += `2^${id} = ${result1}; `;   
 }
+console.log(output1);
 
 //1*. Преобразовать 1 задачу в функцию, принимающую на вход степень, в которую будет возводиться число 2
 function sumTo1(n) { 
@@ -27,7 +28,7 @@ function sumTo1(n) {
          return 2**n;;
    }else console.log('Warning! Enter a numeric value!');
 }
-    console.log( sumTo1(2576878) );
+    console.log( sumTo1(25) );
 
 
 /*2. Написать скрипт, который выведет 5 строк в консоль таким образом, чтобы в первой строчке выводилось :), во второй :):) и так далее
@@ -104,18 +105,18 @@ function getWordStructure(word) {
 //____________________________________________________________________________
 
 
-const getWordStructure = function (word) {
+const getWordStructure1 = function (word) {
     let wordLow = word.toLowerCase();
     let vowelsCount = wordLow.match(/[aeiou]/g).length;
     let constantasCount = wordLow.match(/[qwrtpsdfghjklzxcvbnm]/gs).length;
     console.log(`В слове ${wordLow}: гласных букв ${vowelsCount}; согласных букв ${constantasCount}.`);
     }
 
-getWordStructure('case2');
-getWordStructure('Case');
-getWordStructure('Check-list');
-getWordStructure('Check list');
-getWordStructure('Check list');
+getWordStructure1('case2');
+getWordStructure1('Case');
+getWordStructure1('Check-list');
+getWordStructure1('Check list');
+getWordStructure1('Check list');
 
 
 /* 4**. Написать функцию, которая проверяет, является ли слово палиндромом
