@@ -31,3 +31,4 @@ const Rom = function(word, flow){
   };
   console.log(Rom('ZzZ', 'C1'));
   console.log(Rom('AaA', 'c0'));
+  console.log(Rom('AaA', 'c0'));
